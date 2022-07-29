@@ -7,7 +7,7 @@ video_name = "video-1.mp4"
 
 cap = cv2.VideoCapture(f"{VIDEO_DIR}/{video_name}")
 video_size  = (int(cap.get(3)) - W_CUT_SIZE*2, int(cap.get(4)) - H_CUT_SIZE*2) 
-writer = cv2.VideoWriter(f"{VIDEO_DIR}/result-{video_name}", cv2.VideoWriter_fourcc(*"MJPG"), 30, video_size)
+writer = cv2.VideoWriter(f"{VIDEO_DIR}/result-{video_name}", cv2.VideoWriter_fourcc(*"MJPG"), VIDEO_FPS, video_size)
 
 object_detector = cv2.createBackgroundSubtractorMOG2()
 
