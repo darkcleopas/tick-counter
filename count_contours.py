@@ -14,23 +14,24 @@ def get_contours_number(image, save_img=False, show_img=False):
 
     contours_number = len(cnt)
 
-    cv2.drawContours(image, cnt, -1, DRAW_COLOR, DRAW_THICK)
-    cv2.putText(image, f"Total number: {contours_number}", (30, 40), FONT_TYPE, FONT_SIZE, FONT_COLOR, FONT_THICK)
+    if save_img or show_img:
+        cv2.drawContours(image, cnt, -1, DRAW_COLOR, DRAW_THICK)
+        cv2.putText(image, f"Total number: {contours_number}", (30, 40), FONT_TYPE, FONT_SIZE, FONT_COLOR, FONT_THICK)
     
-    if save_img:
-        cv2.imwrite(f"{IMAGE_DIR}/ticks-gray.png", gray)
-        cv2.imwrite(f"{IMAGE_DIR}/ticks-threshed.png", threshed)
-        cv2.imwrite(f"{IMAGE_DIR}/ticks-canny.png", canny)
-        cv2.imwrite(f"{IMAGE_DIR}/ticks-dilated.png", dilated)
-        cv2.imwrite(f"{IMAGE_DIR}/ticks-found.png", image)
-    
-    if show_img:
-        cv2.imshow("Gray", gray)
-        cv2.imshow("Threshed", threshed)
-        cv2.imshow("Canny", canny)
-        cv2.imshow("Dilated", dilated)
-        cv2.imshow("RGB", image)
-        cv2.waitKey()
+        if save_img:
+            cv2.imwrite(f"{IMAGE_DIR}/ticks-gray.png", gray)
+            cv2.imwrite(f"{IMAGE_DIR}/ticks-threshed.png", threshed)
+            cv2.imwrite(f"{IMAGE_DIR}/ticks-canny.png", canny)
+            cv2.imwrite(f"{IMAGE_DIR}/ticks-dilated.png", dilated)
+            cv2.imwrite(f"{IMAGE_DIR}/ticks-found.png", image)
+        
+        if show_img:
+            cv2.imshow("Gray", gray)
+            cv2.imshow("Threshed", threshed)
+            cv2.imshow("Canny", canny)
+            cv2.imshow("Dilated", dilated)
+            cv2.imshow("RGB", image)
+            cv2.waitKey()
 
     return contours_number
 
