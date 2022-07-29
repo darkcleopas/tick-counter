@@ -3,9 +3,11 @@ import cv2
 from config import *
 from count_contours import get_contours_number
 
-video_name = "video-3.mp4"
+video_name = "video-1.mp4"
 
 cap = cv2.VideoCapture(f"{VIDEO_DIR}/{video_name}")
+video_size  = (int(cap.get(3)) - W_CUT_SIZE*2, int(cap.get(4)) - H_CUT_SIZE*2) 
+writer = cv2.VideoWriter(f"{VIDEO_DIR}/result-{video_name}", cv2.VideoWriter_fourcc(*"MJPG"), 30, video_size)
 
 object_detector = cv2.createBackgroundSubtractorMOG2()
 
@@ -52,6 +54,8 @@ while True:
 		cv2.imshow("Mask", mask)
 		cv2.imshow("Frame", frame)
 
+		writer.write(frame.astype('uint8'))
+
 		print("Total number of ticks:", amount)
 		print("Number of live ticks:", live_ticks)
 		print("Number of dead ticks:", dead_ticks)
@@ -62,5 +66,6 @@ while True:
 	else:
 		break
 
+writer.release()
 cap.release()
 cv2.destroyAllWindows()
